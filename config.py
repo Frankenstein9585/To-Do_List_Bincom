@@ -17,5 +17,6 @@ db = SQLAlchemy(app)
 logging.basicConfig()
 logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
-tasks = Blueprint('tasks', __name__, url_prefix='/tasks')
+task = Blueprint('task', __name__, url_prefix='/tasks')
 
+from routes import *
