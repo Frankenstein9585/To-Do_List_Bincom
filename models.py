@@ -13,8 +13,17 @@ class Task(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.id_ = str(uuid.uuid4())
 
     def __str__(self):
         return f'Task {self.title} - Completed: {self.is_completed}'
+
+    def to_dict(self):
+        attributes = dict()
+        for column in self.__table__.columns:
+            attribute_name = column.name
+            attribute_value = getattr(self, attribute_name)
+            attributes[attribute_name] = attribute_value
+        return attributes
